@@ -25,7 +25,12 @@
 
                     <div class="form-group">
                         <label for="port">Port:</label>
-                        <input type="number" id="port" value="8080" class="material-input">
+                        <input type="number" id="port" value="8080" class="material-input" style="max-width: 300px;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="connection-count">Connection Count:</label>
+                        <input type="number" id="connection-count" class="material-input" min="1" max="100" value="1" style="max-width: 300px;">
                     </div>
 
                     <div class="form-actions">
@@ -54,6 +59,8 @@
                     <div class="form-actions">
                         <button id="send" class="material-button" disabled>Send</button>
                         <button id="clear-log" class="material-button secondary">Clear Log</button>
+                        <button id="open-loadtest" class="material-button" disabled>Spam Test</button>
+                        <button id="open-settings" class="material-button">Settings</button>
                     </div>
                 </div>
             </section>
@@ -96,6 +103,101 @@
                 <div class="dialog-footer">
                     <button id="confirm-cancel" class="material-button secondary">Cancel</button>
                     <button id="confirm-ok" class="material-button">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Test Dialog -->
+        <div id="loadtest-dialog" class="dialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2>Load Test Settings</h2>
+                    <button id="close-loadtest-dialog" class="close-button">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <div class="form-group">
+                        <label for="loadtest-interval">Interval (ms):</label>
+                        <input type="number" id="loadtest-interval" class="material-input" min="100" value="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loadtest-length">Random String Length:</label>
+                        <input type="number" id="loadtest-length" class="material-input" min="1" value="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loadtest-charset">Character Set:</label>
+                        <select id="loadtest-charset" class="material-select">
+                            <option value="alphanumeric">Alphanumeric</option>
+                            <option value="alphabetic">Alphabetic</option>
+                            <option value="numeric">Numeric</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="loadtest-custom-charset-group" style="display: none;">
+                        <label for="loadtest-custom-charset">Custom Character Set:</label>
+                        <input type="text" id="loadtest-custom-charset" class="material-input" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loadtest-encoding">Encoding:</label>
+                        <select id="loadtest-encoding" class="material-select">
+                            <option value="utf8">UTF-8</option>
+                            <option value="ascii">ASCII</option>
+                            <option value="hex">HEX</option>
+                            <option value="base64">Base64</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="dialog-footer">
+                    <button id="loadtest-cancel" class="material-button secondary">Cancel</button>
+                    <button id="loadtest-start" class="material-button">Start Load Test</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Dialog -->
+        <div id="settings-dialog" class="dialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2>Application Settings</h2>
+                    <button id="close-settings-dialog" class="close-button">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <div class="form-group">
+                        <label for="settings-auto-scroll">Auto-scroll Log:</label>
+                        <select id="settings-auto-scroll" class="material-select">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settings-timestamp">Show Timestamps:</label>
+                        <select id="settings-timestamp" class="material-select">
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settings-font-size">Log Font Size:</label>
+                        <select id="settings-font-size" class="material-select">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settings-max-log-entries">Maximum Log Entries:</label>
+                        <input type="number" id="settings-max-log-entries" class="material-input" min="50" value="1000">
+                    </div>
+                </div>
+                <div class="dialog-footer">
+                    <button id="settings-cancel" class="material-button secondary">Cancel</button>
+                    <button id="settings-save" class="material-button">Save Settings</button>
                 </div>
             </div>
         </div>

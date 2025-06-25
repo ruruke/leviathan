@@ -9,9 +9,9 @@ let mainWindow: BrowserWindow | null = null;
 function createWindow(): BrowserWindow {
   const window = new BrowserWindow({
     width: 1200,
-    height: 900,
+    height: 1000,
     minWidth: 1200,
-    minHeight: 900,
+    minHeight: 1000,
     webPreferences: {
       preload: path.join(__dirname, '../preload/preload.js'),
       contextIsolation: true,
@@ -26,7 +26,6 @@ function createWindow(): BrowserWindow {
   const indexPath = path.join(__dirname, '../../dist/src/index.html');
   logger.info(`Loading index.html from: ${indexPath}`);
   window.loadFile(indexPath).then(r => null);
-
   // Open DevTools in development mode
   if (process.env.NODE_ENV === 'development') {
     window.webContents.openDevTools();
