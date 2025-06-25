@@ -13,14 +13,19 @@ function createWindow(): BrowserWindow {
     minWidth: 1200,
     minHeight: 900,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, '../preload/preload.js'),
       contextIsolation: true,
       nodeIntegration: false
     }
   });
 
   // Load the index.html file
-  window.loadFile(path.join(__dirname, 'index.html'));
+
+  // Production mode - load from file
+  // Use path relative to the dist directory to ensure assets are found
+  const indexPath = path.join(__dirname, '../../dist/src/index.html');
+  logger.info(`Loading index.html from: ${indexPath}`);
+  window.loadFile(indexPath).then(r => null);
 
   // Open DevTools in development mode
   if (process.env.NODE_ENV === 'development') {

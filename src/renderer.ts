@@ -1,3 +1,6 @@
+// Make this file a module by adding an export
+export {};
+
 // Define the API interface to match what's exposed in preload.ts
 interface TcpApi {
   connect: (host: string, port: number) => Promise<void>;
@@ -138,11 +141,11 @@ function setupEventListeners(): void {
     addLogEntry('Disconnected from server', 'info');
   });
 
-  dataCleanup = window.api.onData((data, encoding) => {
+  dataCleanup = window.api.onData((data: string, encoding: BufferEncoding) => {
     addLogEntry(`Received (${encoding}): ${data}`, 'received');
   });
 
-  errorCleanup = window.api.onError((error) => {
+  errorCleanup = window.api.onError((error: string) => {
     addLogEntry(`Error: ${error}`, 'error');
     // In case of error, assume disconnected
     updateConnectionState(false);
