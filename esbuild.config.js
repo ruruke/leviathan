@@ -1,6 +1,7 @@
 // esbuild.config.js
 const {build} = require('esbuild');
 const {nodeExternalsPlugin} = require('esbuild-node-externals');
+const {sassPlugin} = require('esbuild-sass-plugin');
 const JavaScriptObfuscator = require('javascript-obfuscator');
 const fs = require('fs');
 const path = require('path');
@@ -24,7 +25,10 @@ async function runBuild() {
         }
         fs.mkdirSync(distDir, {recursive: true});
 
-        // 1. ESBuild でビルド
+        // Copy HTML file to dist directory
+        fs.copyFileSync('./src/index.html', path.join(distDir, 'index.html'));
+
+        // 1. Build main process
         await build({
             entryPoints: ['./src/main.ts'],
             outfile: path.join(distDir, 'main.js'),
@@ -33,6 +37,7 @@ async function runBuild() {
             target: 'node16',
             minify: isProd, // 本番環境のみminify
             external: [
+                'electron',
                 '@nestjs/websockets',
                 '@nestjs/websockets/*',
                 '@nestjs/microservices',
@@ -49,6 +54,47 @@ async function runBuild() {
             sourcemap: !isProd, // 開発環境のみソースマップを生成
             legalComments: 'none', // コメント除去を追加
             charset: 'utf8' // 文字コード指定
+        });
+
+        // 2. Build preload script
+        await build({
+            entryPoints: ['./src/preload.ts'],
+            outfile: path.join(distDir, 'preload.js'),
+            bundle: true,
+            platform: 'node',
+            target: 'node16',
+            minify: isProd,
+            external: ['electron'],
+            plugins: [nodeExternalsPlugin()],
+            sourcemap: !isProd,
+            legalComments: 'none',
+            charset: 'utf8'
+        });
+
+        // 3. Build styles
+        await build({
+            entryPoints: ['./src/styles/styles.scss'],
+            outfile: path.join(distDir, 'styles.css'),
+            bundle: true,
+            minify: isProd,
+            sourcemap: !isProd,
+            plugins: [sassPlugin()],
+            loader: {
+                '.scss': 'css'
+            }
+        });
+
+        // 4. Build renderer process
+        await build({
+            entryPoints: ['./src/renderer.ts'],
+            outfile: path.join(distDir, 'renderer.js'),
+            bundle: true,
+            platform: 'browser',
+            target: 'es2020',
+            minify: isProd,
+            sourcemap: !isProd,
+            legalComments: 'none',
+            charset: 'utf8'
         });
 
         let finalCode = fs.readFileSync(path.join(distDir, 'main.js'), 'utf8');

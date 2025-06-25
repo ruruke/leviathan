@@ -1,25 +1,43 @@
 {
-  "name": "untitled",
+  "name": "leviathan",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Electron TCP Client for debugging",
+  "main": "dist/main.js",
   "scripts": {
-    "dev": "NODE_ENV=development node esbuild.config.js && node dist/main.js",
-    "build:dev": "NODE_ENV=development node esbuild.config.js",
-    "build:prod": "NODE_ENV=production node esbuild.config.js",
-    "start": "node dist/main.js"
+    "dev": "cross-env NODE_ENV=development node esbuild.config.js && electron .",
+    "build:dev": "cross-env NODE_ENV=development node esbuild.config.js",
+    "build:prod": "cross-env NODE_ENV=production node esbuild.config.js",
+    "start": "electron .",
+    "package": "electron-builder"
   },
   "dependencies": {
-    "typescript": "^5.8.3",
+    "electron": "^37.0.0",
+    "electron-builder": "^24.13.3",
+    "net": "^1.0.2",
     "pino": "^9.6.0",
-    "pino-pretty": "^13.0.0"
+    "pino-pretty": "^13.0.0",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.25.2",
     "esbuild-node-externals": "^1.18.0",
-    "javascript-obfuscator": "^4.1.1"
+    "esbuild-sass-plugin": "^2.16.0",
+    "javascript-obfuscator": "^4.1.1",
+    "sass": "^1.69.5"
   },
-  "keywords": [],
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
+  },
+  "keywords": [
+    "electron",
+    "tcp",
+    "client",
+    "debug"
+  ],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0"

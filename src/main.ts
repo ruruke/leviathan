@@ -1,5 +1,2 @@
-function f() {
-    console.log("Hello World");
-}
-console.log("Hello World");
-f();
+// Import from refactored modules
+import './main/index';

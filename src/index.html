@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
+    <title>Leviathan - TCP Client</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="app-title">TCP Client</h1>
+            <div id="status" class="status disconnected">Disconnected</div>
+        </header>
+
+        <main class="app-content">
+            <!-- Left side: Control Panel (40%) -->
+            <section class="control-panel">
+                <div class="panel-section">
+                    <h2 class="section-title">Connection</h2>
+                    <div class="form-group">
+                        <label for="host">Host:</label>
+                        <input type="text" id="host" value="localhost" class="material-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="port">Port:</label>
+                        <input type="number" id="port" value="8080" class="material-input">
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="connect" class="material-button">Connect</button>
+                        <button id="disconnect" class="material-button disconnect" disabled>Disconnect</button>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2 class="section-title">Message</h2>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" placeholder="Enter message to send" class="material-input"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="encoding">Encoding:</label>
+                        <select id="encoding" class="material-select">
+                            <option value="utf8">UTF-8</option>
+                            <option value="ascii">ASCII</option>
+                            <option value="hex">HEX</option>
+                            <option value="base64">Base64</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="send" class="material-button" disabled>Send</button>
+                        <button id="clear-log" class="material-button secondary">Clear Log</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right side: Log Container (60%) -->
+            <section class="log-section">
+                <h2 class="section-title">Log</h2>
+                <div class="log-container" id="log">
+                    <div class="log-entry info">TCP Client ready. Connect to a server to begin.</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Error Dialog -->
+        <div id="error-dialog" class="dialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2>Error</h2>
+                    <button id="close-dialog" class="close-button">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <p id="error-message"></p>
+                </div>
+                <div class="dialog-footer">
+                    <button id="dialog-ok" class="material-button">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Dialog -->
+        <div id="confirm-dialog" class="dialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2>Confirmation</h2>
+                    <button id="close-confirm-dialog" class="close-button">&times;</button>
+                </div>
+                <div class="dialog-body">
+                    <p id="confirm-message">Are you sure you want to proceed?</p>
+                </div>
+                <div class="dialog-footer">
+                    <button id="confirm-cancel" class="material-button secondary">Cancel</button>
+                    <button id="confirm-ok" class="material-button">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

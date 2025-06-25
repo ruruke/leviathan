@@ -1,119 +1,135 @@
-# NodeJS Application (EN)
+# Electron TCP Client
 
-## Overview
+A simple TCP client with GUI built using Electron. This application allows you to connect to TCP servers, send messages with different encodings, and view responses.
 
-This project is a Node.js application written in TypeScript. It is built using ESBuild and features logging with Pino.
-Prerequisites
+## Features
 
-    Node.js (22.x or higher recommended)
-    pnpm 10.10.0 or higher
+- Connect to any TCP server by specifying host and port
+- Send messages with different encodings (UTF-8, ASCII, HEX, Base64)
+- View sent and received messages in a log
+- Simple and intuitive user interface
+- Built with TypeScript, Electron, and Node.js
+- Uses ESBuild for fast bundling
+- Includes logging with Pino
 
-Installation
+## Prerequisites
+
+- Node.js (22.x or higher recommended)
+- pnpm 10.10.0 or higher
+
+## Installation
 
 To install dependencies, run the following command:
-Shell
 
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/electron-tcp-client.git
+cd electron-tcp-client
+
+# Install dependencies
 pnpm install
+```
 
-Usage
-Development Mode
+## Development
 
 To run the application in development mode:
-Shell
 
+```bash
 pnpm dev
+```
 
-This command builds the application in development mode and runs it immediately.
-Build
+This will build the application and start Electron with DevTools open.
+
+## Building
 
 To build the application, use the following commands:
-Development Build
-Shell
 
+```bash
+# Build for development
 pnpm build:dev
 
-Production Build
-Shell
-
+# Build for production (with code obfuscation)
 pnpm build:prod
 
-In the production build, the code is obfuscated using JavaScript Obfuscator.
-Run
-
-To run the built application:
-Shell
-
+# Start the built application
 pnpm start
+```
 
-Key Features
+In the production build, the code is obfuscated using JavaScript Obfuscator.
 
-    TypeScript: A statically typed superset of JavaScript.
-    ESBuild: An extremely fast JavaScript/TypeScript bundler.
-    Pino: A high-performance Node.js logging library.
-    JavaScript Obfuscator: Code protection for production environments.
+## Packaging
 
-GitHub Workflow
+To create distributable packages for your platform:
 
-This project includes a GitHub Actions workflow for Continuous Integration/Continuous Delivery (CI/CD).
-Workflow Configuration
-YAML
+```bash
+pnpm package
+```
 
-name: Node.js CI
+This will create packages in the `dist` directory.
 
-on:
-push:
-branches: [ main, master ]
-pull_request:
-branches: [ main, master ]
+## Troubleshooting
 
-jobs:
-build:
-runs-on: ubuntu-latest
+### Electron Installation Issues
 
-    strategy:
-      matrix:
-        node-version: [18.x]
+If you encounter an error like:
+```
+Error: Electron failed to install correctly, please delete node_modules/electron and try installing again
+```
 
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-        
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 10.10.0
-        
-    - name: Install dependencies
-      run: pnpm install
-      
-    - name: Build (Production)
-      run: pnpm build:prod
-      
-    - name: Test
-      run: pnpm test
+You can fix it by running the provided script:
 
-This workflow performs the following actions:
+```bash
+# Make the script executable if needed
+chmod +x fix-electron.sh
 
-    Runs on pushes to the main or master branches, or on pull requests to these branches.
-    Tests with Node.js 18.x.
-    Uses the pnpm package manager.
-    Installs dependencies, performs a production build, and runs tests.
+# Run the fix script
+./fix-electron.sh
+```
 
-Note: The current package.json does not include a test script. Please add a test script to package.json as needed, or remove the test step from the CI configuration.
-License
+This script will:
+1. Remove the problematic Electron installation
+2. Reinstall all dependencies with the correct Electron version
+3. Allow you to run the application normally
+
+## Usage
+
+1. Enter the host and port of the TCP server you want to connect to
+2. Click "Connect"
+3. Once connected, you can send messages:
+   - Type your message in the text area
+   - Select the encoding (UTF-8, ASCII, HEX, Base64)
+   - Click "Send" or press Enter
+4. Received messages will appear in the log
+5. Click "Disconnect" to close the connection
+6. Use "Clear Log" to clear the message history
+
+## Key Technologies
+
+- **Electron**: Framework for building cross-platform desktop applications
+- **TypeScript**: A statically typed superset of JavaScript
+- **ESBuild**: An extremely fast JavaScript/TypeScript bundler
+- **Pino**: A high-performance Node.js logging library
+- **JavaScript Obfuscator**: Code protection for production environments
+
+## License
 
 GPL-3.0 license
 
-# NodeJS Application (JA)
+---
 
-## 概要
+# Electron TCP クライアント (日本語)
 
-このプロジェクトは、TypeScriptで書かれたNode.jsアプリケーションです。ESBuildを使用してビルドされ、Pinoによるロギング機能を備えています。
+ElectronとTypeScriptを使用して構築されたGUIを備えたシンプルなTCPクライアントです。このアプリケーションを使用すると、TCPサーバーに接続し、異なるエンコーディングでメッセージを送信し、応答を表示できます。
+
+## 機能
+
+- ホストとポートを指定して任意のTCPサーバーに接続
+- 異なるエンコーディング（UTF-8、ASCII、HEX、Base64）でメッセージを送信
+- ログで送受信したメッセージを表示
+- シンプルで直感的なユーザーインターフェース
+- TypeScript、Electron、Node.jsで構築
+- 高速バンドリングのためのESBuild
+- Pinoによるロギング機能
 
 ## 前提条件
 
@@ -124,115 +140,95 @@ GPL-3.0 license
 
 依存関係をインストールするには、以下のコマンドを実行してください：
 
-```shell script
+```bash
+# リポジトリをクローン
+git clone https://github.com/yourusername/electron-tcp-client.git
+cd electron-tcp-client
+
+# 依存関係をインストール
 pnpm install
 ```
 
-
-## 使用方法
-
-### 開発モード
+## 開発
 
 開発モードでアプリケーションを実行するには：
 
-```shell script
+```bash
 pnpm dev
 ```
 
+これにより、アプリケーションがビルドされ、DevToolsが開いた状態でElectronが起動します。
 
-このコマンドは、アプリケーションを開発モードでビルドし、すぐに実行します。
-
-### ビルド
+## ビルド
 
 アプリケーションをビルドするには、以下のコマンドを使用します：
 
-#### 開発ビルド
-
-```shell script
+```bash
+# 開発用ビルド
 pnpm build:dev
-```
 
-
-#### 本番ビルド
-
-```shell script
+# 本番用ビルド（コード難読化あり）
 pnpm build:prod
-```
 
-
-本番ビルドでは、JavaScript Obfuscatorを使用してコードが難読化されます。
-
-### 実行
-
-ビルドしたアプリケーションを実行するには：
-
-```shell script
+# ビルドしたアプリケーションを起動
 pnpm start
 ```
 
+本番ビルドでは、JavaScript Obfuscatorを使用してコードが難読化されます。
 
-## 主な機能
+## パッケージング
 
+プラットフォーム用の配布可能なパッケージを作成するには：
+
+```bash
+pnpm package
+```
+
+これにより、`dist`ディレクトリにパッケージが作成されます。
+
+## トラブルシューティング
+
+### Electronインストールの問題
+
+次のようなエラーが発生した場合：
+```
+Error: Electron failed to install correctly, please delete node_modules/electron and try installing again
+```
+
+提供されたスクリプトを実行して修正できます：
+
+```bash
+# 必要に応じてスクリプトを実行可能にする
+chmod +x fix-electron.sh
+
+# 修正スクリプトを実行
+./fix-electron.sh
+```
+
+このスクリプトは以下を行います：
+1. 問題のあるElectronインストールを削除
+2. 正しいElectronバージョンで全ての依存関係を再インストール
+3. アプリケーションを正常に実行できるようにする
+
+## 使用方法
+
+1. 接続したいTCPサーバーのホストとポートを入力
+2. 「Connect」をクリック
+3. 接続後、メッセージを送信できます：
+   - テキストエリアにメッセージを入力
+   - エンコーディング（UTF-8、ASCII、HEX、Base64）を選択
+   - 「Send」をクリックするか、Enterキーを押す
+4. 受信したメッセージはログに表示されます
+5. 接続を閉じるには「Disconnect」をクリック
+6. メッセージ履歴をクリアするには「Clear Log」を使用
+
+## 主要技術
+
+- **Electron**: クロスプラットフォームデスクトップアプリケーション構築フレームワーク
 - **TypeScript**: 型安全なJavaScriptスーパーセット
 - **ESBuild**: 高速なJavaScript/TypeScriptバンドラー
 - **Pino**: 高性能なNode.jsログライブラリ
 - **JavaScript Obfuscator**: 本番環境用のコード保護
-
-## GitHub Workflow
-
-このプロジェクトには、継続的インテグレーション/継続的デリバリー（CI/CD）のためのGitHub Actionsワークフローが含まれています。
-
-### ワークフロー設定
-
-```yaml
-name: Node.js CI
-
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-        
-    - name: Install pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 10.10.0
-        
-    - name: Install dependencies
-      run: pnpm install
-      
-    - name: Build (Production)
-      run: pnpm build:prod
-      
-    - name: Test
-      run: pnpm test
-```
-
-
-このワークフローは以下の処理を行います：
-- mainまたはmasterブランチへのプッシュ、またはこれらのブランチへのプルリクエスト時に実行
-- Node.js 18.x環境でテスト
-- pnpmパッケージマネージャーを使用
-- 依存関係のインストール、本番ビルド、テストを実行
-
-**注意**: 現在のpackage.jsonにはテストスクリプトが含まれていないため、必要に応じてpackage.jsonにテストスクリプトを追加するか、CI設定からテストステップを削除してください。
 
 ## ライセンス
 

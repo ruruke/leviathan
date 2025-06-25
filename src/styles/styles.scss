@@ -1,0 +1,519 @@
+// Material Design Variables
+// Typography
+$font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+// Material Design Color Palette (Dark Theme)
+$primary-color: #BB86FC; // Purple 200
+$primary-dark-color: #9E63F9; // Darker purple for hover states
+$secondary-color: #03DAC6; // Teal 200
+$secondary-dark-color: #00B3A6; // Darker teal for hover states
+$background-color: #121212; // Standard dark background
+$surface-color: #1E1E1E; // Slightly lighter than background
+$error-color: #CF6679; // Red 200 equivalent for dark theme
+$on-primary-color: #000000; // Text on primary color (dark)
+$on-secondary-color: #000000; // Text on secondary color (dark)
+$on-background-color: #FFFFFF; // Text on background (light)
+$on-surface-color: #E0E0E0; // Text on surface (light)
+$on-error-color: #000000; // Text on error color (dark)
+
+// Derived colors
+$primary-hover-color: $primary-dark-color;
+$secondary-hover-color: $secondary-dark-color;
+$danger-color: $error-color;
+$danger-hover-color: darken($error-color, 10%);
+$disabled-color: rgba(255, 255, 255, 0.38); // 38% white
+$text-color: $on-surface-color;
+$heading-color: $on-background-color;
+$border-color: rgba(255, 255, 255, 0.12); // 12% white
+$container-background: $surface-color;
+$log-background: #2D2D2D; // Slightly lighter than surface
+$info-color: #9E9E9E; // Grey 500
+$sent-color: #64B5F6; // Blue 300
+$received-color: #81C784; // Green 300
+
+// Elevation levels (box-shadows)
+$elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+$elevation-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+$elevation-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+$elevation-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+$elevation-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+// Base styles
+body {
+    font-family: $font-family;
+    margin: 0;
+    padding: 0;
+    background-color: $background-color;
+    color: $text-color;
+    line-height: 1.5;
+    font-size: 16px;
+    font-size: clamp(14px, 1vw + 10px, 18px); /* Responsive font size */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%; /* Ensure text scales properly with zoom */
+    -webkit-text-size-adjust: 100%;
+}
+
+// Custom scrollbar for dark theme
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+    color: $heading-color;
+    margin-top: 0;
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+}
+
+// Layout
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100vw;
+    background-color: $background-color;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background-color: $surface-color;
+    box-shadow: $elevation-2;
+    z-index: 10;
+}
+
+.app-title {
+    margin: 0;
+    font-weight: 400;
+}
+
+.app-content {
+    display: flex;
+    flex: 1;
+    padding: 24px;
+    gap: 24px;
+    overflow: auto;
+    min-height: 0; /* Needed for Firefox */
+}
+
+// Control panel (left side - 40%)
+.control-panel {
+    flex: 1 1 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    min-height: 0; /* Needed for Firefox */
+}
+
+.panel-section {
+    background-color: $surface-color;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: $elevation-1;
+}
+
+.section-title {
+    margin-top: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $border-color;
+}
+
+// Log section (right side - 60%)
+.log-section {
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    background-color: $surface-color;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: $elevation-1;
+    overflow: hidden;
+    min-height: 0; /* Needed for Firefox */
+}
+
+// Form elements
+.form-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+    color: rgba($text-color, 0.87);
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+// Material Design Input Styles
+.material-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid $border-color;
+    border-radius: 4px 4px 0 0;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: $text-color;
+    transition: all 0.2s ease;
+
+    &:focus {
+        outline: none;
+        border-bottom: 2px solid $primary-color;
+        background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    &::placeholder {
+        color: rgba($text-color, 0.5);
+    }
+}
+
+textarea.material-input {
+    min-height: 120px;
+    resize: vertical;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+
+    &:focus {
+        border: 2px solid $primary-color;
+    }
+}
+
+.material-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: $text-color;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23BB86FC'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    transition: all 0.2s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    cursor: pointer;
+    box-shadow: $elevation-1;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus {
+        outline: none;
+        border: 2px solid $primary-color;
+        background-color: rgba(255, 255, 255, 0.12);
+        box-shadow: $elevation-2;
+        padding: 11px 15px; /* Adjust padding to account for thicker border */
+    }
+
+    /* Style for the options */
+    option {
+        background-color: $surface-color;
+        color: $text-color;
+        padding: 8px;
+        font-weight: 400;
+    }
+}
+
+// Material Design Button Styles
+.material-button {
+    background-color: $primary-color;
+    color: $on-primary-color;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.0892857143em;
+    transition: all 0.2s ease-in-out;
+    box-shadow: $elevation-1;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        transition: background-color 0.2s;
+    }
+
+    &:hover {
+        box-shadow: $elevation-2;
+
+        &::after {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+    }
+
+    &:active {
+        box-shadow: $elevation-1;
+
+        &::after {
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+    }
+
+    &.secondary {
+        background-color: transparent;
+        color: $primary-color;
+        box-shadow: none;
+
+        &:hover {
+            background-color: rgba($primary-color, 0.08);
+        }
+
+        &:active {
+            background-color: rgba($primary-color, 0.12);
+        }
+    }
+
+    &.disconnect {
+        background-color: $danger-color;
+        color: $on-error-color;
+
+        &:hover::after {
+            background-color: rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    &:disabled {
+        background-color: rgba(255, 255, 255, 0.12);
+        color: $disabled-color;
+        cursor: not-allowed;
+        box-shadow: none;
+
+        &::after {
+            display: none;
+        }
+    }
+}
+
+// Log container and entries
+.log-container {
+    flex: 1;
+    border-radius: 4px;
+    padding: 12px;
+    background-color: $log-background;
+    overflow-y: auto;
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(12px, 0.875rem, 16px); /* Responsive font size */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-height: 0; /* Needed for Firefox */
+    height: 100%;
+    max-height: calc(100vh - 200px); /* Prevent excessive height on large screens */
+    box-sizing: border-box;
+    will-change: transform, contents; /* Optimize for scaling and content changes */
+    overscroll-behavior: contain; /* Prevent scroll chaining */
+}
+
+.log-entry {
+    margin-bottom: 8px;
+    padding: 4px 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    &.sent {
+        color: $sent-color;
+    }
+
+    &.received {
+        color: $received-color;
+    }
+
+    &.error {
+        color: $error-color;
+    }
+
+    &.info {
+        color: $info-color;
+    }
+}
+
+// Status indicator
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.0892857143em;
+
+    &.connected {
+        background-color: rgba($received-color, 0.2);
+        color: $received-color;
+    }
+
+    &.disconnected {
+        background-color: rgba($error-color, 0.2);
+        color: $error-color;
+    }
+}
+
+// Error Dialog
+.dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.dialog-content {
+    background-color: $surface-color;
+    border-radius: 8px;
+    width: 100%;
+    max-width: min(90vw, 500px); /* Responsive width */
+    box-shadow: $elevation-3;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+    will-change: transform; /* Optimize for animations */
+
+    .visible & {
+        transform: translateY(0);
+    }
+}
+
+.dialog-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $border-color;
+
+    h2 {
+        margin: 0;
+        color: $error-color;
+    }
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: $text-color;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+}
+
+.dialog-body {
+    padding: 24px;
+
+    p {
+        margin: 0;
+    }
+}
+
+.dialog-footer {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid $border-color;
+}
+
+// Media queries for responsive layout
+@media (max-width: 768px) {
+    .app-content {
+        flex-direction: column;
+    }
+
+    .control-panel,
+    .log-section {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .log-container {
+        min-height: 300px; // Ensure minimum height on small screens
+    }
+}
+
+@media (max-width: 480px) {
+    .app-content {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .panel-section,
+    .log-section {
+        padding: 12px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .material-button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,105 @@
+name: Electron App Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  release-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'pnpm'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Build the app
+      - name: Build Production
+        run: pnpm run build:prod
+        env:
+          NODE_ENV: production
+
+      # Package the app using electron-builder for cross-platform builds
+      - name: Package App (Linux)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm run package
+
+      - name: Upload Linux Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-artifacts
+          path: dist_electron/leviathan-*.AppImage
+
+      # Publish artifacts to GitHub Releases
+      - name: Publish Linux Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          files: dist_electron/leviathan-*.AppImage
+          body: |
+            A new release of the Electron app has been published. 🚀
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release-windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.3.0
+        with:
+          node-version-file: '.node-version'
+          cache: 'pnpm'
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Build the app
+      - name: Build Production
+        run: pnpm run build:prod
+        env:
+          NODE_ENV: production
+
+      # Package the app using electron-builder for cross-platform builds
+      - name: Package App (Windows)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm run package
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifacts
+          path: dist_electron/leviathan*.exe
+
+      # Publish artifacts to GitHub Releases
+      - name: Publish Windows Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          files: dist_electron/leviathan*.exe
+          body: |
+            A new release of the Electron app has been published. 🚀
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
