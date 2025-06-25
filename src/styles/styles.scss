@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Material Design Variables
 // Typography
 $font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -20,7 +22,7 @@ $on-error-color: #000000; // Text on error color (dark)
 $primary-hover-color: $primary-dark-color;
 $secondary-hover-color: $secondary-dark-color;
 $danger-color: $error-color;
-$danger-hover-color: darken($error-color, 10%);
+$danger-hover-color: color.adjust($error-color, $lightness: -10%);
 $disabled-color: rgba(255, 255, 255, 0.38); // 38% white
 $text-color: $on-surface-color;
 $heading-color: $on-background-color;

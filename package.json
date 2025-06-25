@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Electron TCP Client for debugging",
   "main": "dist/main/index.js",
-  "email": "contact@ruruke.com",
   "scripts": {
     "dev": "vite build && vite",
     "build": "tsc --noEmit && vite build && electron-builder",
@@ -37,7 +36,7 @@
     "client",
     "debug"
   ],
-  "author": "",
+  "author": "Leviathan Team <contact@ruruke.com>",
   "license": "ISC",
   "packageManager": "pnpm@10.10.0",
   "build": {
